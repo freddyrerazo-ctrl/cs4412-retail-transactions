@@ -16,7 +16,7 @@ Association Rule Mining: Implementing the Apriori Algorithm to identify high-lif
 Dataset
 Name: Retail Transaction Dataset
 
-Source: Kaggle (Link to Dataset)
+Source: [Kaggle (Link to Dataset)](https://www.kaggle.com/datasets/heeraldedhia/groceries-dataset/data)
 
 Description: The dataset contains 38,000+ rows of grocery transactions. Each record includes a Member ID, Date, and Item Description.
 
