@@ -1,51 +1,68 @@
-# Pattern Discovery in Grocery Retail Transactions
+Pattern Discovery in Grocery Retail Transactions
+CS 4412: Data Mining | Kennesaw State University Author: Freddy Erazo
 
-## Project Overview
+Semester: Spring 2026
 
-This repository contains my CS 4412: Data Mining semester project. The goal of the project is to perform pattern discovery (not prediction) on a grocery retail transaction dataset. I will analyze shopping baskets to find:
+Project Overview
+This repository contains my semester project for CS 4412. The objective is to apply the Knowledge Discovery in Databases (KDD) process to a grocery retail dataset to uncover non-obvious patterns in consumer behavior. Unlike traditional predictive modeling, this project focuses on Association Rule Mining to understand product relationships and market basket dynamics.
 
-- Frequently co-purchased products using association rule mining (Apriori / FP-Growth).
-- Natural customer segments based on purchasing behavior using clustering (e.g., K-Means / Hierarchical).
-- Anomalous transactions or customers whose behavior is unusual compared to the majority.
+Key Objectives for Milestone 2:
+Exploratory Data Analysis (EDA): Visualizing sales trends, popular items, and customer activity.
 
-The focus is on understanding patterns in the data and interpreting them, rather than building high-accuracy predictive models.
+Data Preprocessing: Transforming raw transaction logs into grouped "baskets" and performing One-Hot Encoding.
 
-## Dataset
+Association Rule Mining: Implementing the Apriori Algorithm to identify high-lift product pairings.
 
-- **Name:** Retail Transaction Dataset  
-- **Source:** Kaggle  
-- **Link:** https://www.kaggle.com/datasets/bkcoban/retail-transaction-dataset  
+Dataset
+Name: Retail Transaction Dataset
 
-This dataset contains synthetic grocery store transactions, where each row represents a shopping basket with a list of purchased products and related identifiers.
+Source: Kaggle (Link to Dataset)
 
-## Project Structure
+Description: The dataset contains 38,000+ rows of grocery transactions. Each record includes a Member ID, Date, and Item Description.
 
-- `data/`  
-  - Intended location for the dataset files (CSV, etc.).  
-  - You can add a `.gitignore` here if you want to avoid pushing large raw data files.
-- `docs/`  
-  - Contains the LaTeX-generated proposal PDF for Milestone M1 (e.g., `M1_proposal.pdf`).
-  - Jupyter notebooks for data exploration and experiments.
-  - Python scripts for data loading, preprocessing, and analysis.
-  - This file, describing the project.
+Repository Structure
+retail data project.ipynb: The primary Jupyter Notebook containing the end-to-end analysis, EDA plots, and mining results.
 
-## Planned Techniques
+Groceries_dataset.csv: The raw transaction data used for analysis.
 
-The project will primarily use data mining techniques, including:
+Summary_Milestone2.pdf: A 2-page report summarizing key insights and technical decisions.
 
-- **Association Rules:**  
-  Discover frequent itemsets and association rules (support, confidence, lift) from transaction-level baskets to find products commonly purchased together.
+README.md: This file, providing an overview of the project state.
 
-- **Clustering:**  
-  Build customer-level feature vectors (e.g., average basket size, category preferences) and apply clustering algorithms (K-Means / Hierarchical) to discover customer segments.
+Progress & Methodology (KDD Process)
+1. Selection & Preprocessing
+To make the data minable, I grouped individual item records by Member_number and Date. This allowed me to reconstruct 14,963 unique shopping baskets. I then applied One-Hot Encoding to convert these categorical lists into a binary matrix suitable for the Apriori algorithm.
 
-- **Anomaly Detection:**  
-  Use simple distance-based or rule-based methods to flag transactions or customers whose behavior is significantly different from the majority.
+2. Exploratory Data Analysis (EDA)
+I generated several visualizations to understand the data's distribution, including:
 
+Top 10 most frequent items (identifying "anchor" products).
 
-- **Course:** CS 4412 — Data Mining  
-- **Institution:** (kennesaw state university)  
-- **Semester:** (Spring 2026)  
+Distribution of basket sizes (average of 2.6 items per trip).
 
-**Author:**  
-- Your Name: Freddy Erazo
+Sales trends by month and day of the week.
+
+3. Data Mining (Association Rules)
+Using the mlxtend library, I applied the Apriori algorithm to discover rules with a Lift > 1. This helped identify specific product "companions"—items that are bought together more often than would be expected by random chance.
+
+How to Run the Project
+Clone this repository to your local machine.
+
+Ensure you have Python installed with the following libraries:
+
+pandas
+
+matplotlib
+
+seaborn
+
+mlxtend
+
+Open retail data project.ipynb in Jupyter Notebook or VS Code and run all cells.
+
+Future Work (Milestone 3)
+Refining association rules using higher confidence thresholds.
+
+Segmenting rules based on customer loyalty (Heavy Shoppers vs. Occasional Shoppers).
+
+Investigating potential clustering techniques to group similar shopping trips.
