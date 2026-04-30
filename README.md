@@ -1,67 +1,57 @@
-Pattern Discovery in Grocery Retail Transactions
-CS 4412: Data Mining | Kennesaw State University Author: Freddy Erazo
+# Pattern Discovery in Grocery Retail Transactions
+**CS 4412: Data Mining | Kennesaw State University**  
+**Author:** Freddy Erazo  
+**Semester:** Spring 2026
 
-Semester: Spring 2026
+## Project Overview
+This repository contains the complete implementation and final documentation for my CS 4412 semester project. The objective was to apply the **Knowledge Discovery in Databases (KDD)** process to a grocery retail dataset to uncover non-obvious patterns in consumer behavior through a combination of association rule mining and unsupervised machine learning.
 
-Project Overview
-This repository contains the complete implementation for my CS 4412 semester project. The objective is to apply the Knowledge Discovery in Databases (KDD) process to a grocery retail dataset to uncover non-obvious patterns in consumer behavior.
+The project successfully transitions from raw transaction logs to actionable business intelligence, categorizing the retailer as a "daily necessity hub" driven by staple products and a highly loyal VIP shopper segment.
 
-While Milestone 2 focused on initial exploration, Milestone 3 brings the project to functional completeness by integrating Market Basket Analysis with Unsupervised Machine Learning (Clustering) to categorize shopper behavior.
+## Key Implementation Features
+*   **End-to-End Data Pipeline**: Automated ingestion, cleaning, and transformation of **38,765 transaction records**.
+*   **Market Basket Analysis**: Applied the **Apriori Algorithm** to generate 240 rules, identifying high-lift "Product Anchors" such as the Yogurt-Milk relationship (Lift: 2.18).
+*   **Customer Segmentation**: Implemented **K-Means Clustering** to segment the shopper base into three distinct behavioral profiles: Occasional, Regular, and VIP shoppers.
+*   **Anomaly Detection**: Integrated an **Isolation Forest** algorithm to filter "extreme" shoppers (top 1%), ensuring cluster integrity and protecting against non-human data skew.
+*   **Statistical Validation**: Utilized the **Elbow Method** and **Silhouette Analysis** to mathematically verify the optimal cluster count ($k=3$).
 
-Key Implementation Features (Milestone 3 Update)
-End-to-End Data Pipeline: Automated ingestion, cleaning, and transformation of 38,000+ transaction records.
+## Dataset
+*   **Name**: Retail Transaction Dataset (Groceries)
+*   **Source**: Kaggle
+*   **Scope**: 38,765 records consolidated into **14,963 unique shopping baskets** based on `Member_number` and `Date`.
 
-Association Rule Mining: Applied the Apriori Algorithm to identify high-lift "Product Anchors" (e.g., the Yogurt-Milk relationship).
+## Repository Structure
+*   `retail_data_project.ipynb`: Primary Jupyter Notebook containing the full pipeline: EDA, Apriori mining, K-Means clustering, and Isolation Forest.
+*   `Groceries_dataset.csv`: The raw transaction data.
+*   `Analysis_Milestone3.pdf`: A technical report detailing implementation status, analytical choices, and discovery results.
+*   `README.md`: Project overview and setup instructions.
 
-Customer Segmentation: Implemented K-Means Clustering to segment the shopper base into three distinct behavioral profiles: Occasional, Regular, and VIP shoppers.
+## Methodology & Findings
 
-Statistical Validation: Generated a Lift Distribution Analysis to verify the significance of discovered rules.
+### 1. Preprocessing & Transformation
+Data was grouped into "baskets" to represent individual shopping trips. I applied **One-Hot Encoding** for association mining and **StandardScaler** normalization for clustering to ensure the K-Means algorithm treated shopping frequency and volume with equal mathematical weight.
 
-Dataset
-Name: Retail Transaction Dataset (Groceries)
+### 2. Mining & Pattern Discovery
+*   **Product Anchors**: Identified `{Yogurt} -> {Whole Milk}` as a primary anchor with a **Lift of 2.18**, indicating these items are intentionally sought out together.
+*   **Behavioral Segments**:
+    *   **Segment 0 (Regulars)**: Routine shoppers averaging 4.4 visits and 11.5 items.
+    *   **Segment 1 (Occasional)**: "Top-off" shoppers averaging 2.2 visits and 5.4 items.
+    *   **Segment 2 (VIPs)**: High-frequency loyalists averaging 6.9 visits and 18.8 items.
 
-Source: Kaggle
+### 3. Business Insights
+The analysis suggests a convenience-driven model where items like dairy and produce drive daily traffic. Strategic recommendations include implementing "bundle deals" for high-lift pairs to convert occasional shoppers and developing retention programs for the high-value VIP segment.
 
-Scope: 38,000+ rows; 14,963 unique shopping baskets reconstructed by Member_number and Date.
+## How to Run
+1.  **Clone the Repo**:
+    ```bash
+    git clone [https://github.com/freddyrerazo-ctrl/cs4412-retail-transactions](https://github.com/freddyrerazo-ctrl/cs4412-retail-transactions)
+    ```
+2.  **Install Dependencies**:
+    ```bash
+    pip install pandas numpy matplotlib seaborn mlxtend scikit-learn
+    ```
+3.  **Execute**: Run all cells in `retail_data_project.ipynb` to regenerate the analysis and visualizations.
 
-Repository Structure
-retail data project.ipynb: The primary Jupyter Notebook containing the full pipeline, EDA, Apriori mining, and K-Means clustering.
-
-Groceries_dataset.csv: The raw transaction data.
-
-Analysis_Milestone3.pdf: A 4-page technical report detailing implementation status, analytical choices, and discovery results.
-
-README.md: Project overview and setup instructions.
-
-Methodology & Findings
-1. Preprocessing & Transformation
-Data was grouped into "baskets" to represent individual shopping trips. I applied One-Hot Encoding for association mining and StandardScaler normalization for clustering to ensure the K-Means algorithm treated shopping frequency and volume with equal mathematical weight.
-
-2. Mining & Pattern Discovery
-Product Anchors: Identified {Yogurt} -> {Whole Milk} as a primary anchor with a Lift of 2.18, indicating these items are intentionally sought out together.
-
-Behavioral Segments:
-
-Segment 0 (Occasional): High-volume "top-off" shoppers (1-2 items).
-
-Segment 1 (Regulars): Routine weekly shoppers with consistent hauls.
-
-Segment 2 (VIPs): High-frequency, high-volume loyalists who drive significant revenue.
-
-3. Business Insights
-The data suggests a dual-strategy for retail optimization: prioritizing "grab-and-go" efficiency for the majority (Segment 0) while developing loyalty-retention programs for the high-value cluster (Segment 2).
-
-How to Run
-Clone the Repo: git clone [Your Repo Link]
-
-Install Dependencies: ```bash
-pip install pandas numpy matplotlib seaborn mlxtend scikit-learn
-
-Execute: Run all cells in retail data project.ipynb.
-
-Future Work (Milestone 4)
-Temporal Stability Analysis: Investigating if product associations fluctuate based on the day of the week or month.
-
-Visualization Polish: Refining charts to portfolio-quality standards for the final presentation.
-
-Critical Assessment: Evaluating the limitations of the chosen support/confidence thresholds.
+## Critical Assessment & Future Work
+*   **Limitations**: The low support threshold (0.001) used for mining uncovers rare but strong rules; however, these may lack the volume for store-wide physical restructuring.
+*   **Future Work**: Integration of temporal stability analysis (day-of-week fluctuations) and the incorporation of demographic data to better understand the "why" behind the VIP segment's behavior.
